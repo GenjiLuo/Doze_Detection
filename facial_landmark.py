@@ -1,10 +1,12 @@
-from imutils import face_utils #used for making translations from dlib output formatting to opencv formatting easier
-import imutils #library provided by Adrian Rosebrock, creator of pyimagesearch
-
+from imutils import face_utils
+import imutils
 import argparse
 import numpy
 import dlib
 import cv2
+
+import face_regions #contains the required packages and the face region detection
+
 
 #parse the command-line arguments specifying the path of shape predictor and input image
 parser = argparse.ArgumentParser()
@@ -30,12 +32,22 @@ for (i, rect) in enumerate(rects):
     shape = predictor(gray,rect)
     shape = face_utils.shape_to_np(shape)
 
-    (x,y,w,h) = face_utils.rect_to_bb(rect)
-    cv2.rectangle(image, (x,y), (x+w, y+h), (0,255,0), 2)
-    cv2.putText(image, 'Box#{}'.format(i+1), (x-10,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,255,0), 2)
+    for (name, (j,k)) in face_utils.FACIAL_LANDMARKS_IDXS.items():
+        clone = image.copy()
+        regional_pts = shape[j:k]
+        #the bounding box containing face region
+        (x,y,w,h) = cv2.boundingRect(numpy.array(regional_pts))
+        region = image[y:y+h, x:x+w]
+        region = imutils.resize(region,width=250)
+        
+        cv2.putText(clone, name, (10,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0),2)
 
-    for (x,y) in shape:
-        cv2.circle(image,(x,y), 0, (0,0,255), -1)
-cv2.imshow('Output',image)
-cv2.waitKey(0)
+        for (x,y) in regional_pts:
+            cv2.circle(clone,(x,y),0,(0,0,255),-1)
 
+        cv2.imshow('clone',clone)
+        cv2.imshow('region',region)
+        cv2.waitKey(0)
+    output = face_regions.visualize_facial_landmark(image,shape)
+    cv2.imshow('Whole face',output) 
+    cv2.waitKey(0)

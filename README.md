@@ -28,3 +28,9 @@ There are two steps so far on how facial landmarks are detected on a given input
 ## Where We Are Now:
 
 I am writing out the code/ procedure I have learned so far on how a face detector and landmark predictor are used to show localized areas of the face. I am also using the 68 point iBUG 300-W dataset which the dlib facial landmark predictor was trained on, which I now include in the top directory.
+
+## How to Use:
+
+1. Git clone the project onto your local directory.
+2. cd into the directory you cloned the repository.
+3. Run `python facial_landmark.py --shape-predictor face_landmarks_68.dat --image [jpg/png of image you want]`. Alternatively, you can use -p and -i as shorthand for --shape-predictor and --image, respectively.
