@@ -28,12 +28,13 @@ There are two steps so far on how facial landmarks are detected on a given input
 
 ## Where We Are Now:
 
-I wrote out the code/ procedure I have learned so far on how a face detector and landmark predictor are used to show localized areas of the face. I am also using the 68 point iBUG 300-W dataset which the dlib facial landmark predictor was trained on, which I now include in the top directory. I have now applied the same procedure of face landmark detection to frames in a video rather than on a single image.
+I wrote out the code/ procedure I have learned so far on how a face detector and landmark predictor are used to show localized areas of the face. I am also using the 68 point iBUG 300-W dataset which the dlib facial landmark predictor was trained on, which I now include in the top directory. I then applied the same procedure of face landmark detection to frames in a video rather than on a single image. Now, I used the eye aspect ratio (EAR) of the left and right eye landmarks to designate whether my eyes are open or closed, depending on which side of the EAR threshold they are on, and I calculate from that the amount of times that the person has blinked so far.
 
 ## How to Use:
 
 1. Git clone the project onto your local directory.
 2. cd into the directory you cloned the repository.
-3. There are two different programs you can run:
+3. There are three different programs you can run:
 	1. To detect faces in images, run `python facial_landmark.py --shape-predictor face_landmarks_68.dat --image [jpg/png of image you want]`. Alternatively, you can use -p and -i as shorthand for --shape-predictor and --image, respectively.
 	2. To detect faces in framew, run 'python video_landmark.py --shape-predictor face_landmarks_68.dat [--picamera 1]` with the `[]` being optional if you want to run the camera through your raspberry pi instead of your webcam. To quit the program, press q.
+	3. To detect blinks on a face in camera, run `python blink_detection.py --shape-predictor face_landmarks_68.dat`. Once the window opens, you can blink and confirm the blink count to see that the threshold has been set correctly for you. If not, go into blink_detection.py, and adjust the EYE_RATIO_THRESHOLD accordingly.
