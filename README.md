@@ -1,9 +1,9 @@
-# Fatigue_Detection
+# Doze_Detection
 ## Concept/Purpose:
 Sleep-deprived drivers pose a dangerous risk to themselves and others they share the road with. As a countermeasure
 to this problem, I am going to be making a device that uses a camera to detect fatigue from a person's eyes and gives
 off an alarm to wake them up. 
-**Update** This project was originally intended as a way of helping my mom with drowsiness while she is driving, as well as a learning experience for me getting into the details of computer vision techniques. Though the code for this already exists, I use the tutorial as a means of learning and applying to future personal projects.
+**Note**: This project was originally intended as a way of helping my mom with drowsiness while she is driving, as well as a learning experience for me getting into the details of computer vision techniques. Though the code for this already exists, I use the tutorial as a means of learning and applying to future personal projects.
 
 ## Process:
 The process of building the eye detection tool will follow the same steps used by Adrian Rosebrock, the programmer who runs pyimagesearch.com. Credit for the imutils helper library used throughout this process also goes to Adrian Rosebrock. The steps will roughly follow the outline below:
@@ -34,7 +34,8 @@ I wrote out the code/ procedure I have learned so far on how a face detector and
 
 1. Git clone the project onto your local directory.
 2. cd into the directory you cloned the repository.
-3. There are three different programs you can run:
-	1. To detect faces in images, run `python facial_landmark.py --shape-predictor face_landmarks_68.dat --image [jpg/png of image you want]`. Alternatively, you can use -p and -i as shorthand for --shape-predictor and --image, respectively.
+3. There are four different programs you can run:
+	1. To detect faces in images, run `python facial_landmark.py --shape-predictor face_landmarks_68.dat --image [path of jpg/png of image you want]`. You can find samples of pictures in the pictures directory. Alternatively, you can use -p and -i as shorthand for --shape-predictor and --image, respectively.
 	2. To detect faces in framew, run 'python video_landmark.py --shape-predictor face_landmarks_68.dat [--picamera 1]` with the `[]` being optional if you want to run the camera through your raspberry pi instead of your webcam. To quit the program, press q.
 	3. To detect blinks on a face in camera, run `python blink_detection.py --shape-predictor face_landmarks_68.dat`. Once the window opens, you can blink and confirm the blink count to see that the threshold has been set correctly for you. If not, go into blink_detection.py, and adjust the EYE_RATIO_THRESHOLD accordingly.
+	4. To detect signs of drowsiness, run `python doze_detection.py --shape-predictor face_landmarks_68.dat --alarm [path of mp3 or wav file of alarm you want]`. You can find a sample in the sounds directory. Try to use sound files that are a few seconds long, the program stops while the sound plays. Face the camera, and if you are dozing off, the window will sound the alarm and give a warning message. **Note**: Keep in mind that the angle at which you look at the camera will affect the eye ratio calculated. In such a case, the alarm may go off at a false positive.

@@ -26,7 +26,7 @@ args = vars(parser.parse_args())
 
 
 #constants and global variables
-EYE_RATIO_THRESHOLD = 0.25
+EYE_RATIO_THRESHOLD = 0.22
 COUNT_THRESHOLD = 3
 
 count = 0
